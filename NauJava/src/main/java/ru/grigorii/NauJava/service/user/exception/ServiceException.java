@@ -1,5 +1,8 @@
 package ru.grigorii.NauJava.service.user.exception;
 
+/**
+ * Исключение слоя бизнес-логики
+ */
 public class ServiceException extends RuntimeException
 {
     public ServiceException(String message, Throwable cause)

@@ -1,18 +1,20 @@
 package ru.grigorii.NauJava.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import ru.grigorii.NauJava.entity.User;
 import ru.grigorii.NauJava.repository.exception.EntityExistsException;
 import ru.grigorii.NauJava.repository.exception.EntityNotFoundException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Репозиторий для работы с сущностью пользователь. Реализует как CRUD операции,
+ * так и операцию чтения всех сущностей
+ */
 @Component
-public class UserRepository implements CrudRepository<User, Long>
+public class UserRepository implements CrudRepository<User, Long>, ReadAllRepository<User>
 {
     private final Map<Long, User> userContainer;
 
@@ -51,7 +53,6 @@ public class UserRepository implements CrudRepository<User, Long>
     @Override
     public List<User> readAll()
     {
-
         return new ArrayList<>(userContainer.values());
     }
 

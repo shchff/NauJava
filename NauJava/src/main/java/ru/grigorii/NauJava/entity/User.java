@@ -2,6 +2,9 @@ package ru.grigorii.NauJava.entity;
 
 import java.time.ZoneId;
 
+/**
+ * Сущность пользователь
+ */
 public class User
 {
     private Long id;

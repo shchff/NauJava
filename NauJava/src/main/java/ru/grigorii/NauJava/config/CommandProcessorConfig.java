@@ -9,6 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import ru.grigorii.NauJava.command.CommandProcessor;
 import java.util.Scanner;
 
+/**
+ * Конфигурация CommandLineRunner для через CLI
+ */
 @Configuration
 public class CommandProcessorConfig
 {

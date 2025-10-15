@@ -1,5 +1,8 @@
 package ru.grigorii.NauJava.service.user.exception;
 
+/**
+ * Исключение, возникающее при попытке создать пользователя с указанным id или email
+ */
 public class UserAlreadyExistsException extends ServiceException
 {
     private static final String idCauseMessage = "User with id=%d already exists";

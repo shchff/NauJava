@@ -4,20 +4,21 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.grigorii.NauJava.config.GeneralConfig;
-import ru.grigorii.NauJava.dto.user.RegisterUserDto;
-import ru.grigorii.NauJava.dto.user.UpdateUserDetailsDto;
-import ru.grigorii.NauJava.dto.user.UpdateUserEmailDto;
-import ru.grigorii.NauJava.dto.user.UpdateUserPasswordDto;
+import ru.grigorii.NauJava.dto.UserDto;
 import ru.grigorii.NauJava.entity.User;
 import ru.grigorii.NauJava.repository.UserRepository;
 import ru.grigorii.NauJava.repository.exception.EntityExistsException;
 import ru.grigorii.NauJava.repository.exception.EntityNotFoundException;
 import ru.grigorii.NauJava.service.user.exception.UserAlreadyExistsException;
 import ru.grigorii.NauJava.service.user.exception.UserNotFoundException;
-
 import java.time.ZoneId;
 import java.util.List;
 
+/**
+ * Реализация сервиса для работы с пользователями.
+ * После создания выводит информацию о приложении в консоль. Использует idGeneratorWithIncrement для генерации
+ * идентификаторов.
+ */
 @Service
 public class UserServiceImpl implements UserService
 {
@@ -42,7 +43,7 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public Long register(RegisterUserDto dto)
+    public Long register(UserDto dto)
     {
         String email = dto.email();
 
@@ -75,22 +76,18 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public User findById(Long id)
+    public UserDto findById(Long id)
     {
-        try
-        {
-            return repository.read(id);
-        }
-        catch (EntityNotFoundException e)
-        {
-            throw new UserNotFoundException(id, e);
-        }
+        return UserDto.fromEntity(findEntityById(id));
     }
 
     @Override
-    public List<User> findAll()
+    public List<UserDto> findAll()
     {
-        return (List<User>) repository.readAll();
+        return repository.readAll()
+                .stream()
+                .map(UserDto::fromEntity)
+                .toList();
     }
 
     @Override
@@ -107,18 +104,20 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public void updateDetails(UpdateUserDetailsDto dto)
+    public void updateDetails(UserDto dto)
     {
-        User user = findById(dto.id());
+        User user = findEntityById(dto.id());
 
         user.setName(dto.name());
         user.setSurname(dto.surname());
+
+        repository.update(user);
     }
 
     @Override
-    public void updateEmail(UpdateUserEmailDto dto)
+    public void updateEmail(UserDto dto)
     {
-        User user = findById(dto.id());
+        User user = findEntityById(dto.id());
 
         String email = dto.email();
 
@@ -128,14 +127,30 @@ public class UserServiceImpl implements UserService
         }
 
         user.setEmail(dto.email());
+
+        repository.update(user);
     }
 
     @Override
-    public void updatePassword(UpdateUserPasswordDto dto)
+    public void updatePassword(UserDto dto)
     {
-        User user = findById(dto.id());
+        User user = findEntityById(dto.id());
 
         user.setPassword(dto.password());
+
+        repository.update(user);
+    }
+
+    private User findEntityById(Long id)
+    {
+        try
+        {
+            return repository.read(id);
+        }
+        catch (EntityNotFoundException e)
+        {
+            throw new UserNotFoundException(id, e);
+        }
     }
 
     private boolean userWithEmailExists(String email)
