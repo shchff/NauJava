@@ -1,19 +1,19 @@
-package ru.grigorii.NauJava.command;
+package ru.grigorii.NauJava.console.command;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.grigorii.NauJava.service.user.UserService;
 
 /**
- * Команда для удаления пользователя
+ * Команда для получения всех пользователей
  */
 @Component
-public class DeleteUserCommand implements IdExtractableCommand
+public class GetAllUsersCommand implements Command
 {
     private final UserService userService;
 
     @Autowired
-    public DeleteUserCommand(UserService userService)
+    public GetAllUsersCommand(UserService userService)
     {
         this.userService = userService;
     }
@@ -21,26 +21,25 @@ public class DeleteUserCommand implements IdExtractableCommand
     @Override
     public String name()
     {
-        return "delete";
+        return "get_all";
     }
 
     @Override
     public String usage()
     {
-        return "delete <id>";
+        return "get_all";
     }
 
     @Override
     public int paramsNumber()
     {
-        return 1;
+        return 0;
     }
 
     @Override
     public void execute(String[] args)
     {
-        Long id = extractId(args[0]);
-        userService.deleteById(id);
-        System.out.println("User deleted successfully!");
+        userService.findAll()
+                .forEach(System.out::println);
     }
 }

@@ -1,8 +1,9 @@
-package ru.grigorii.NauJava.command;
+package ru.grigorii.NauJava.console.command;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+import ru.grigorii.NauJava.console.CommandRegistry;
 
 /**
  * Команда для вывода инструкций для всех команд

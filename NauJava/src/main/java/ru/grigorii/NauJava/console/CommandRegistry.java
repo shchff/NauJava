@@ -1,6 +1,8 @@
-package ru.grigorii.NauJava.command;
+package ru.grigorii.NauJava.console;
 
 import org.springframework.stereotype.Component;
+import ru.grigorii.NauJava.console.command.Command;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package ru.grigorii.NauJava.command;
+package ru.grigorii.NauJava.console.command;
 
 /**
  * Интерфейс команды

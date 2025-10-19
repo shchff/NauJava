@@ -1,4 +1,4 @@
-package ru.grigorii.NauJava.command;
+package ru.grigorii.NauJava.console.command;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -6,15 +6,15 @@ import ru.grigorii.NauJava.dto.UserDto;
 import ru.grigorii.NauJava.service.user.UserService;
 
 /**
- * Команда для регистрации пользователя
+ * Команда для обновления пароля пользователя
  */
 @Component
-public class RegisterUserCommand implements Command
+public class ChangeUserPasswordCommand implements IdExtractableCommand
 {
     private final UserService userService;
 
     @Autowired
-    public RegisterUserCommand(UserService userService)
+    public ChangeUserPasswordCommand(UserService userService)
     {
         this.userService = userService;
     }
@@ -22,27 +22,26 @@ public class RegisterUserCommand implements Command
     @Override
     public String name()
     {
-        return "register";
+        return "change_password";
     }
 
     @Override
     public String usage()
     {
-        return "register <name> <surname> <email> <password>";
+        return "change_password <id> <password>";
     }
 
     @Override
     public int paramsNumber()
     {
-        return 4;
+        return 2;
     }
 
     @Override
     public void execute(String[] args)
     {
-        Long id = userService.register(
-                UserDto.forRegistration(args[0], args[1], args[2], args[3]));
-
-        System.out.printf("User registered successfully!%nUser id: %d%n", id);
+        Long id = extractId(args[0]);
+        userService.updatePassword(UserDto.forPasswordUpdate(id, args[1]));
+        System.out.println("Password changed successfully!");
     }
 }

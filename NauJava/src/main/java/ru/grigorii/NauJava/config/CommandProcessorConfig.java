@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.grigorii.NauJava.command.CommandProcessor;
+import ru.grigorii.NauJava.console.CommandProcessor;
 import java.util.Scanner;
 
 /**

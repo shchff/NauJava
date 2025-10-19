@@ -1,17 +1,20 @@
-package ru.grigorii.NauJava.command;
+package ru.grigorii.NauJava.console.command;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.grigorii.NauJava.dto.UserDto;
 import ru.grigorii.NauJava.service.user.UserService;
 
+/**
+ * Команда для обновления email пользователя
+ */
 @Component
-public class GetUserCommand implements IdExtractableCommand
+public class ChangeUserEmailCommand implements IdExtractableCommand
 {
     private final UserService userService;
 
     @Autowired
-    public GetUserCommand(UserService userService)
+    public ChangeUserEmailCommand(UserService userService)
     {
         this.userService = userService;
     }
@@ -19,26 +22,26 @@ public class GetUserCommand implements IdExtractableCommand
     @Override
     public String name()
     {
-        return "get";
+        return "change_email";
     }
 
     @Override
     public String usage()
     {
-        return "get <id>";
+        return "change_email <id> <email>";
     }
 
     @Override
     public int paramsNumber()
     {
-        return 1;
+        return 2;
     }
 
     @Override
     public void execute(String[] args)
     {
         Long id = extractId(args[0]);
-        UserDto user = userService.findById(id);
-        System.out.println(user);
+        userService.updateEmail(UserDto.forEmailUpdate(id, args[1]));
+        System.out.println("Email changed successfully!");
     }
 }

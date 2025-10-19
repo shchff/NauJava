@@ -1,19 +1,17 @@
-package ru.grigorii.NauJava.command;
+package ru.grigorii.NauJava.console.command;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.grigorii.NauJava.dto.UserDto;
 import ru.grigorii.NauJava.service.user.UserService;
 
-/**
- * Команда для получения всех пользователей
- */
 @Component
-public class GetAllUsersCommand implements Command
+public class GetUserCommand implements IdExtractableCommand
 {
     private final UserService userService;
 
     @Autowired
-    public GetAllUsersCommand(UserService userService)
+    public GetUserCommand(UserService userService)
     {
         this.userService = userService;
     }
@@ -21,25 +19,26 @@ public class GetAllUsersCommand implements Command
     @Override
     public String name()
     {
-        return "get_all";
+        return "get";
     }
 
     @Override
     public String usage()
     {
-        return "get_all";
+        return "get <id>";
     }
 
     @Override
     public int paramsNumber()
     {
-        return 0;
+        return 1;
     }
 
     @Override
     public void execute(String[] args)
     {
-        userService.findAll()
-                .forEach(System.out::println);
+        Long id = extractId(args[0]);
+        UserDto user = userService.findById(id);
+        System.out.println(user);
     }
 }

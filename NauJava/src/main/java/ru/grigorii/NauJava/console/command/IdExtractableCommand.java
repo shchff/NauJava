@@ -1,4 +1,4 @@
-package ru.grigorii.NauJava.command;
+package ru.grigorii.NauJava.console.command;
 
 /**
  * Дополнительный интерфейс для реализаций Command, в которых нужно парсить id из String в Long
