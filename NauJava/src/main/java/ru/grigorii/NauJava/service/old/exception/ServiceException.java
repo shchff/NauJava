@@ -1,4 +1,4 @@
-package ru.grigorii.NauJava.service.user.exception;
+package ru.grigorii.NauJava.service.old.exception;
 
 /**
  * Исключение слоя бизнес-логики

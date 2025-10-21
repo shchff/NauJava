@@ -45,6 +45,6 @@ public record UserDto(
     public static UserDto fromEntity(User entity)
     {
         return new UserDto(entity.getId(), entity.getName(), entity.getSurname(),
-                entity.getEmail(), entity.getPassword(), entity.getTimezone());
+                entity.getEmail(), entity.getPasswordHash(), ZoneId.of(entity.getTimezone()));
     }
 }

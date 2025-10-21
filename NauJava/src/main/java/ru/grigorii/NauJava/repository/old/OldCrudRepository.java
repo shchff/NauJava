@@ -1,11 +1,11 @@
-package ru.grigorii.NauJava.repository;
+package ru.grigorii.NauJava.repository.old;
 
 /**
  * Интерфейс репозитория с CRUD операциями
  * @param <T> Сущность
  * @param <ID> Идентификатор сущности
  */
-public interface CrudRepository<T, ID>
+public interface OldCrudRepository<T, ID>
 {
     void create(T entity);
     T read(ID id);

@@ -1,4 +1,4 @@
-package ru.grigorii.NauJava.service.user;
+package ru.grigorii.NauJava.service.old;
 
 import ru.grigorii.NauJava.dto.UserDto;
 import java.util.List;

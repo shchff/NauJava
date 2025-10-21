@@ -1,4 +1,4 @@
-package ru.grigorii.NauJava.service.user;
+package ru.grigorii.NauJava.service.old;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 import ru.grigorii.NauJava.config.GeneralConfig;
 import ru.grigorii.NauJava.dto.UserDto;
 import ru.grigorii.NauJava.entity.User;
-import ru.grigorii.NauJava.repository.UserRepository;
-import ru.grigorii.NauJava.repository.exception.EntityExistsException;
-import ru.grigorii.NauJava.repository.exception.EntityNotFoundException;
-import ru.grigorii.NauJava.service.user.exception.UserAlreadyExistsException;
-import ru.grigorii.NauJava.service.user.exception.UserNotFoundException;
+import ru.grigorii.NauJava.repository.old.OldUserRepository;
+import ru.grigorii.NauJava.repository.old.exception.EntityExistsException;
+import ru.grigorii.NauJava.repository.old.exception.EntityNotFoundException;
+import ru.grigorii.NauJava.service.old.exception.UserAlreadyExistsException;
+import ru.grigorii.NauJava.service.old.exception.UserNotFoundException;
 import java.time.ZoneId;
 import java.util.List;
 
@@ -22,12 +22,12 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService
 {
-    private final UserRepository repository;
+    private final OldUserRepository repository;
     private final IdGenerator idGenerator;
     private final GeneralConfig config;
 
     @Autowired
-    public UserServiceImpl(UserRepository repository, IdGenerator idGenerator, GeneralConfig config)
+    public UserServiceImpl(OldUserRepository repository, IdGenerator idGenerator, GeneralConfig config)
     {
         this.repository = repository;
         this.idGenerator = idGenerator;
@@ -60,8 +60,8 @@ public class UserServiceImpl implements UserService
         user.setName(dto.name());
         user.setSurname(dto.surname());
         user.setEmail(email);
-        user.setPassword(dto.password());
-        user.setTimezone(ZoneId.systemDefault());
+        user.setPasswordHash(dto.password());
+        user.setTimezone(ZoneId.systemDefault().toString());
 
         try
         {
@@ -136,7 +136,7 @@ public class UserServiceImpl implements UserService
     {
         User user = findEntityById(dto.id());
 
-        user.setPassword(dto.password());
+        user.setPasswordHash(dto.password());
 
         repository.update(user);
     }

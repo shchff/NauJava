@@ -2,7 +2,7 @@ package ru.grigorii.NauJava.console.command;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.grigorii.NauJava.service.user.UserService;
+import ru.grigorii.NauJava.service.old.UserService;
 
 /**
  * Команда для получения всех пользователей
