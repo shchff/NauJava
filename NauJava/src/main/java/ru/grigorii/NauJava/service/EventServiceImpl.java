@@ -77,6 +77,6 @@ public class EventServiceImpl implements EventService
 
         reminderRepository.saveAll(reminders);
 
-        return EventDto.fromEntity(event);
+        return EventDto.fromEntity(savedEvent);
     }
 }
