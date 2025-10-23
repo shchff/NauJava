@@ -1,4 +1,4 @@
-package ru.grigorii.NauJava.repository;
+package ru.grigorii.NauJava.repository.old;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import java.util.List;
  * Интерфейс репозитория для чтения всех сущностей
  * @param <T> Сущность
  */
-public interface ReadAllRepository<T>
+public interface OldReadAllRepository<T>
 {
     List<T> readAll();
 }

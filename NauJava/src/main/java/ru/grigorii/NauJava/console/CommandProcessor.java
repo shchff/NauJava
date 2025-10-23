@@ -3,7 +3,7 @@ package ru.grigorii.NauJava.console;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.grigorii.NauJava.console.command.Command;
-import ru.grigorii.NauJava.service.user.exception.ServiceException;
+import ru.grigorii.NauJava.service.old.exception.ServiceException;
 
 /**
  * Обработчик команд. Осуществляются дополнительные проверки на корректность ввода

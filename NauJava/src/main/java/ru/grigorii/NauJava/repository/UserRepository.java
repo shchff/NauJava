@@ -1,87 +1,13 @@
 package ru.grigorii.NauJava.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 import ru.grigorii.NauJava.entity.User;
-import ru.grigorii.NauJava.repository.exception.EntityExistsException;
-import ru.grigorii.NauJava.repository.exception.EntityNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
- * Репозиторий для работы с сущностью пользователь. Реализует как CRUD операции,
- * так и операцию чтения всех сущностей
+ * Репозиторий для работы с сущностью пользователь
  */
-@Component
-public class UserRepository implements CrudRepository<User, Long>, ReadAllRepository<User>
+@Repository
+public interface UserRepository extends CrudRepository<User, Long>
 {
-    private final Map<Long, User> userContainer;
-
-    @Autowired
-    public UserRepository(Map<Long, User> userContainer)
-    {
-        this.userContainer = userContainer;
-    }
-
-    @Override
-    public void create(User entity)
-    {
-        Long id = entity.getId();
-
-        if (userExists(id))
-        {
-            throw new EntityExistsException(id);
-        }
-
-        userContainer.put(id, entity);
-    }
-
-    @Override
-    public User read(Long id)
-    {
-        User user = userContainer.get(id);
-
-        if (user == null)
-        {
-            throw new EntityNotFoundException(id);
-        }
-
-        return user;
-    }
-
-    @Override
-    public List<User> readAll()
-    {
-        return new ArrayList<>(userContainer.values());
-    }
-
-    @Override
-    public void update(User entity)
-    {
-        Long id = entity.getId();
-
-        if (!userExists(id))
-        {
-            throw new EntityNotFoundException(id);
-        }
-
-        userContainer.put(id, entity);
-    }
-
-    @Override
-    public void delete(Long id)
-    {
-        if (!userExists(id))
-        {
-            throw new EntityNotFoundException(id);
-        }
-
-        userContainer.remove(id);
-    }
-
-    private boolean userExists(Long id)
-    {
-        return userContainer.get(id) != null;
-    }
 }

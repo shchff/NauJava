@@ -1,4 +1,4 @@
-package ru.grigorii.NauJava.service.user.exception;
+package ru.grigorii.NauJava.service.old.exception;
 
 /**
  * Исключение, связанное с отсутствием в БД пользователя с указанным id

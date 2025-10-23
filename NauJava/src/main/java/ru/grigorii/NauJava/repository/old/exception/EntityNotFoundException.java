@@ -1,4 +1,4 @@
-package ru.grigorii.NauJava.repository.exception;
+package ru.grigorii.NauJava.repository.old.exception;
 
 /**
  * Исключение, связанное с отсутствием в БД сущности с указанным id
