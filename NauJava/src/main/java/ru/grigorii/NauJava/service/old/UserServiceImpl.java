@@ -9,8 +9,9 @@ import ru.grigorii.NauJava.entity.User;
 import ru.grigorii.NauJava.repository.old.OldUserRepository;
 import ru.grigorii.NauJava.repository.old.exception.EntityExistsException;
 import ru.grigorii.NauJava.repository.old.exception.EntityNotFoundException;
-import ru.grigorii.NauJava.service.old.exception.UserAlreadyExistsException;
-import ru.grigorii.NauJava.service.old.exception.UserNotFoundException;
+import ru.grigorii.NauJava.service.exception.UserAlreadyExistsException;
+import ru.grigorii.NauJava.service.exception.UserNotFoundException;
+
 import java.time.ZoneId;
 import java.util.List;
 
