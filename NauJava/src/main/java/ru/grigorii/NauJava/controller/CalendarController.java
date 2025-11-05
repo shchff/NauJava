@@ -22,7 +22,7 @@ import java.util.List;
  * Контроллер календарей
  */
 @RestController
-@RequestMapping("/calendars")
+@RequestMapping("/api/calendars")
 @Tag(name = "Календари", description = "Кастомные методы для календаря")
 public class CalendarController
 {

@@ -40,6 +40,13 @@ public class User
     private String passwordHash;
 
     /**
+     * Роль пользователя
+     */
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.USER;
+
+    /**
      * Временная зона пользователя
      */
     @Column(length = 75)
@@ -144,5 +151,15 @@ public class User
     public void setCreatedAt(ZonedDateTime createdAt)
     {
         this.createdAt = createdAt;
+    }
+
+    public Role getRole()
+    {
+        return role;
+    }
+
+    public void setRole(Role role)
+    {
+        this.role = role;
     }
 }

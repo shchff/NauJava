@@ -47,4 +47,9 @@ public record UserDto(
         return new UserDto(entity.getId(), entity.getName(), entity.getSurname(),
                 entity.getEmail(), entity.getPasswordHash(), ZoneId.of(entity.getTimezone()));
     }
+
+    public static UserDto nullDto()
+    {
+        return new UserDto(null, null, null, null, null, null);
+    }
 }
