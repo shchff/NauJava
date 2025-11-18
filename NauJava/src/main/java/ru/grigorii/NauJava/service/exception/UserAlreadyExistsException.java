@@ -1,4 +1,4 @@
-package ru.grigorii.NauJava.service.old.exception;
+package ru.grigorii.NauJava.service.exception;
 
 /**
  * Исключение, возникающее при попытке создать пользователя с указанным id или email

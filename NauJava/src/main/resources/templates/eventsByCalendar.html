@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Events By Calendar</title>
+</head>
+<body>
+
+<h1 th:text="'Events by calendar with ID=' + ${calendarId}"></h1>
+
+<table border="2">
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Priority</th>
+        <th>Done</th>
+        <th>Created at</th>
+    </tr>
+    <tr th:each="event : ${events}">
+        <th th:text="${event.id}"></th>
+        <th th:text="${event.title}"></th>
+        <th th:text="${event.description}"></th>
+        <th th:text="${event.startTime}"></th>
+        <th th:text="${event.endTime}"></th>
+        <th th:text="${event.priority}"></th>
+        <th th:text="${event.done}"></th>
+        <th th:text="${event.createdAt}"></th>
+    </tr>
+</table>
+
+</body>
+</html>
