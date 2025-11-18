@@ -23,16 +23,16 @@ public class EventViewController
         this.repository = repository;
     }
 
-    @GetMapping("/events-view")
-    public String eventsByCalendarView(@RequestParam Long calendarId, Model model)
-    {
-        List<EventDto> events = repository.findAllByCalendarId(calendarId)
-                .stream()
-                .map(EventDto::fromEntity)
-                .toList();
-
-        model.addAttribute("events", events);
-        model.addAttribute("calendarId", calendarId);
-        return "eventsByCalendar";
-    }
+//    @GetMapping("/events-view")
+//    public String eventsByCalendarView(@RequestParam Long calendarId, Model model)
+//    {
+//        List<EventDto> events = repository.findAllByCalendarId(calendarId)
+//                .stream()
+//                .map(EventDto::fromEntity)
+//                .toList();
+//
+//        model.addAttribute("events", events);
+//        model.addAttribute("calendarId", calendarId);
+//        return "eventsByCalendar";
+//    }
 }
