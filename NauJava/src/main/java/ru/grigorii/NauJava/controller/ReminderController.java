@@ -24,7 +24,7 @@ import java.util.List;
  * Контроллер напоминаний
  */
 @RestController
-@RequestMapping("/api/reminders")
+@RequestMapping("/reminders")
 @Tag(name = "Напоминания", description = "Кастомные методы для напоминаний")
 public class ReminderController
 {

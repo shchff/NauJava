@@ -3,7 +3,7 @@ package ru.grigorii.NauJava.service.old;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.grigorii.NauJava.config.GeneralConfig;
+import ru.grigorii.NauJava.GeneralConfig;
 import ru.grigorii.NauJava.dto.UserDto;
 import ru.grigorii.NauJava.entity.User;
 import ru.grigorii.NauJava.repository.old.OldUserRepository;
