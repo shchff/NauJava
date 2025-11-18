@@ -1,7 +1,7 @@
 package ru.grigorii.NauJava.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import ru.grigorii.NauJava.entity.Reminder;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Репозиторий для работы с сущностью напоминание
  */
-@Repository
+@RepositoryRestResource(path = "reminders")
 public interface ReminderRepository extends CrudRepository<Reminder, Long>
 {
     /**
