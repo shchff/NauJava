@@ -26,9 +26,7 @@ public class ReportController
     )
     public Long createReport()
     {
-        Long id = reportService.createReport();
-        reportService.buildReportAsync(id);
-        return id;
+        return reportService.createAndStartBuildingReport();
     }
 
     @GetMapping("/{id}")

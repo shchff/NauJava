@@ -16,6 +16,7 @@ import ru.grigorii.NauJava.repository.UserRepository;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 
 @DisplayName("ReportService test")
 @ExtendWith(MockitoExtension.class)
@@ -46,37 +47,69 @@ public class ReportServiceTest
         Report report = new Report();
         report.setId(1L);
         report.setStatus(ReportStatus.CREATED);
+        report.setContent(null);
+        Mockito.when(reportRepository.save(any(Report.class)))
+                .thenAnswer(invocation -> {
+                    Report saved = invocation.getArgument(0);
+                    if (saved.getId() == null)
+                    {
+                        saved.setId(1L);
+                    }
+                    return saved;
+                });
 
-        Mockito.when(reportRepository.findById(1L))
+        Long id = reportService.createAndStartBuildingReport();
+
+        Mockito.when(reportRepository.findById(id))
                 .thenReturn(Optional.of(report));
 
-        reportService.buildReportAsync(1L);
-
-        String result = reportService.getReportContent(1L);
+        String result = reportService.getReportContent(id);
 
         assertEquals("Отчёт ещё формируется", result);
     }
 
-    @DisplayName("Report has error")
+    @DisplayName("Report has error during building")
     @Test
     void shouldReturnReportHasError()
     {
         Report report = new Report();
         report.setId(1L);
         report.setStatus(ReportStatus.CREATED);
+        report.setContent(null);
+
+        Mockito.when(reportRepository.save(any(Report.class)))
+                .thenAnswer(invocation -> {
+                    Report saved = invocation.getArgument(0);
+                    if (saved.getId() == null)
+                    {
+                        saved.setId(1L);
+                    }
+                    return saved;
+                });
 
         Mockito.when(reportRepository.findById(1L))
-                .thenReturn(Optional.of(report));
-
-        Mockito.when(reportRepository.save(Mockito.any()))
-                .thenAnswer(invocation -> invocation.getArgument(0));
+                .thenReturn(Optional.of(report))
+                .thenReturn(Optional.of(new Report() {{
+                    setId(1L);
+                    setStatus(ReportStatus.ERROR);
+                    setContent(null);
+                }}));
 
         Mockito.when(userRepository.count())
                 .thenThrow(new RuntimeException("DB error"));
 
-        reportService.buildReportAsync(1L).join();
+        Long id = reportService.createAndStartBuildingReport();
 
-        String result = reportService.getReportContent(1L);
+        try
+        {
+            Thread.sleep(500);
+        }
+        catch (InterruptedException e)
+        {
+            Thread.currentThread().interrupt();
+        }
+
+        String result = reportService.getReportContent(id);
 
         assertEquals("Произошла ошибка при формировании отчёта", result);
     }

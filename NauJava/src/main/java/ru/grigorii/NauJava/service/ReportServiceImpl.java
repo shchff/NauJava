@@ -44,7 +44,14 @@ public class ReportServiceImpl implements ReportService
     }
 
     @Override
-    public Long createReport()
+    public Long createAndStartBuildingReport()
+    {
+        Long id = createReport();
+        buildReportAsync(id);
+        return id;
+    }
+
+    private Long createReport()
     {
         Report report = new Report();
         report.setStatus(ReportStatus.CREATED);
@@ -52,8 +59,7 @@ public class ReportServiceImpl implements ReportService
         return report.getId();
     }
 
-    @Override
-    public CompletableFuture<Void> buildReportAsync(Long id)
+    private void buildReportAsync(Long id)
     {
         class Results
         {
@@ -68,7 +74,7 @@ public class ReportServiceImpl implements ReportService
 
         Results results = new Results();
 
-        return CompletableFuture.runAsync(() -> {
+        CompletableFuture.runAsync(() -> {
 
             Report report = reportRepository.findById(id)
                     .orElseThrow(() -> new IllegalArgumentException(String.format("Report with id=%d not found", id)));
