@@ -68,7 +68,7 @@ public class GeneralConfig
         return security
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/register", "/css/**", "/js/**", "/images/**")
+                        .requestMatchers("/", "/login", "/register", "/css/**", "/js/**", "/images/**", "/reminders/**")
                         .permitAll()
                         .requestMatchers(
                                 "/swagger-ui/**",
